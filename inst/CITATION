@@ -1,0 +1,14 @@
+citHeader("To cite package 'flowPeaks' in publication use:")
+citEntry(entry="article",
+	title="flowPeaks: a fast unsupervised clustering for flow cytometry data via K-means and density peak finding",
+  	author=personList(person(given="Yongchao",family="Ge"),
+	person(given="Stuart C.",family="Sealfon")),
+	journal="Bioinformatics",
+	year="2012",
+	note = paste("R package version ", R.Version()$major, ".", R.Version()$minor, sep = ""),
+	textVersion = "Ge Y. et al, flowPeaks: a fast unsupervised clustering for flow cytometry data via K-means and density peak finding, 2012, Bioinformatics, in press")	       
+	
+citFooter("This free open-source software implements academic
+research by the authors and co-workers. If you use it,
+please support the project by citing the appropriate
+journal articles.")

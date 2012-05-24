@@ -1,0 +1,9 @@
+useDynLib(flowPeaks,.registration = TRUE)
+export(flowPeaks)
+export(adjust.flowPeaks)
+export(assign.flowPeaks)
+export(evalCluster)
+S3method(plot,flowPeaks)
+S3method(print,flowPeaks)
+S3method(summary,flowPeaks)
+

@@ -1,0 +1,10 @@
+##Please modify GSL_LIB to the corresponding GSL library location
+##The GSL library is downloaded from the local.zip at http://www.stats.ox.ac.uk/pub/Rtools/goodies/Win32/.
+##Please do not compile your own gsl library by MinGW or Visual Studio. Most likely your own version of gsl library is not going to work. 
+
+GSL_LIB=c:/usr/oxford_local
+
+PKG_CXXFLAGS = -I$(GSL_LIB)/include
+PKG_LIBS = -L$(GSL_LIB)/lib -lgsl -gslcblas -lm
+
+

@@ -1,0 +1,97 @@
+This software provides the source code of the R package flowPeaks 
+The printer friendly version of this file is part of the vignette pdf file
+located at flowPeaks/inst/doc/flowPeaks-guide.pdf in the source package or 
+located at flowPeaks/doc/flowPeaks-guide of the installed flowPeaks library 
+or Windows built library.
+
+1. Licensing
+    Under the Artistic License, you are free to use and redistribute 
+    this software. However, we ask you to cite the following paper if 
+    you use this software for publication
+
+       Ge Y. et al, fowPeaks: a fast unsupervised clustering for flow cytometry
+       data via K-means and density peak finding, Manuscript, 2012
+
+2 Overview
+     We combine the ideas from the finite mixture model and histogram spatial
+     exploration together to find the clustering of the flow cytometry data. 
+     This new algorithm, in which we called flowPeaks, can be applied to 
+     high dimensional data and identify irregular shape clusters. 
+     The algorithm first uses K-means algorithm with a large K to partition 
+     the population into many compact clusters. These partitioned data allow 
+     us to generate a smoothed density function. All local peaks are 
+     exhaustively found by exploring the density function and the
+     cells are clustered by the associated local peak. The algorithm fowPeaks is
+     automatic, fast and reliable and robust to the cluster shape and outliers.
+     Details can be seen in the paper by Ge (2012).
+
+3 Installation
+
+3.1 All users
+   When you are reading this and find the R package is already available in 
+   the Bioconductor package repository. You can install it directly from 
+   the Bioconductor.
+      --Windows users: select the menu "Packages" and then click 
+        "Select repositories..." and choose "BioC software". And then 
+         select the menu "Packages", click "install R package(s)..." and 
+         then look for the package flowPeaks
+      --Linux users: This also works for Windows users.
+         Type the following after you have invoked R
+         > source("http://bioconductor.org/biocLite.R")
+         > biocLite("flowPeaks")
+
+    If this succeeds, congratulations.
+
+3.2 Windows Users
+
+    Please read section 3.1 to install the R package from Bioconductor 
+    before proceed this. If you have the prebuilt binary of ﬂowPeaks zip ﬁle, 
+    you can install the package by selecting the menu "Packages", and then 
+    “Install packages from a local zip ﬁle”, and then point to prebuilt binary 
+     of ﬂowPeaks zip ﬁle.
+
+    To build ﬂowPeaks from the source by using Rtools is very not 
+    straightforward. R novices are not encouraged to try this. 
+    Experienced R users need to  carefully follow the instruction of 
+    the Rtools (http://www.murdoch-sutherland.com/Rtools/) and 
+    http://cran.r-project.org/doc/manuals/R-admin.html#The-Windows-toolset. 
+    The GSL library needs to be downloaded from the ﬁle local.zip 
+    at http://www.stats.ox.ac.uk/pub/Rtools/goodies/Win32 and the GSL_LIB 
+    in the ﬁle flowPeaks/src/Makevars.win should be pointed to the
+    top folder of the extracted ﬁle local.zip. The top folder should 
+    contain three  subfolders: include, bin and lib. The users are not 
+    encouraged to compile their  own gsl library by MinGW or Visual Studio. 
+    Most likely their own version of gsl library is not going to work.
+
+3.3  Linux Users
+
+    To build the ﬂowPeaks package from the source, make sure that the following
+    is present on your system.
+        C++ compiler
+        GNU Scientiﬁc Library (GSL)
+
+     A C++ compiler is needed to build the package as the core function is 
+     coded in  C++. GSL can be downloaded directly from 
+     http://www.gnu.org/software/gsl/ and follow its instructions to 
+     install the GSL from the source code. Alternatively, GSL can also be 
+     installed from your linux speciﬁc package manager (for example, 
+     Synaptic Package Manager for Ubuntu system). Other than the GSL
+     binary library, please make sure the GSL development package is 
+     also installed,  which includes the header ﬁles when building 
+     ﬂowPeaks package.  Now you are ready to install the package:
+
+     R CMD INSTALL flowPeaks_x.y.z.tar.gz
+ 
+     If GSL is installed at some non-standard location such that it cannot be
+     found when installing ﬂowPeaks. You need to do the following
+
+       1. Find out the GSL include location (<path-to-include>) where the GSL
+          header ﬁles are stored in the sub folder gsl, and GSL library location
+          (<path-to-lib>) where the lib ﬁles are stored. If the GSL’s gsl_config
+          can be run, you can get them easily by gsl-config --cflags 
+          and gsl-config  --libs
+       2. In the ﬁle flowPeaks/src/Makevars, you may need to change the last
+          two lines as below
+          PKG_CXXFLAGS = $(GSL_CFLAGS) -I. -I<path-to-include>
+          PKG_LIBS = $(GSL_LIBS) -L<path-to-lib>
+

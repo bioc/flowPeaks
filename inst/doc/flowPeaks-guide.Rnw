@@ -1,0 +1,231 @@
+%\VignetteIndexEntry{Tutorial of flowPeaks package}
+%\VignetteKeywords{Preprocessing,clustering,statistics, flow cytometry}
+%\VignettePackage{flowPeaks}
+\documentclass{article}
+\usepackage{cite, hyperref}
+\renewcommand\floatpagefraction{.9}
+\renewcommand\topfraction{.9}
+\renewcommand\bottomfraction{.9}
+\renewcommand\textfraction{.1}
+
+%%remove the connecting ~ due the bug of the tex2div in ubuntu to deal with 
+%%tilde
+\title{A guide to use the flowPeaks: a flow cytometry 
+  data clustering algorithm via $K$-means and density peak finding }
+\author{Yongchao Ge}
+
+\begin{document}
+\setkeys{Gin}{width=0.9\textwidth}
+
+\maketitle
+\begin{center}
+{\tt yongchao.ge@gmail.com}
+\end{center}
+\textnormal{\normalfont}
+\section{Licensing}
+Under the Artistic License, you are free to use and redistribute this software. 
+However, we ask you to cite the following paper if you use this software for publication. 
+\begin{itemize}
+\item Ge Y. et al, flowPeaks: a fast unsupervised clustering for flow
+cytometry data via $K$-means and density peak finding, 2012, Bioinformatics, in press. 
+\end{itemize}
+
+\section{Overview}
+We combine the ideas from the finite mixture
+model and histogram spatial exploration together to find the clustering of the 
+flow cytometry data. This new algorithm,
+in which we called \texttt{flowPeaks}, can be applied to high dimensional data
+and identify irregular shape clusters. The algorithm first uses $K$-means
+algorithm with a large $K$ to partition the population into many compact clusters. These partitioned data allow us to generate
+a smoothed density function. All local peaks are exhaustedly found
+by exploring the density function and the cells are clustered by the
+associated local peak. The algorithm flowPeaks ia automatic, fast and
+reliable and robust to the cluster shape and outliers. Details can be seen in 
+the paper by Ge (2012).
+
+\section{Installation}
+\subsection{All users}
+When you are reading this and find the R package is already available in the Bioconductor package repository. You
+can install it directly from Bioconductor.
+\begin{itemize}
+\item {\bf Windows users}:  select the menu ``Packages'' and then click 
+  ``Select repositories...'' and choose ``BioC software''. And then select the menu `Packages''
+click ``install R package(s)...'' and then look for the package flowPeaks.
+  \item {\bf Linux users}: This also works for Windows users. Type the following after you have invoked R
+\begin{verbatim}
+> source("http://bioconductor.org/biocLite.R")
+> biocLite("flowPeaks")
+\end{verbatim}
+\end{itemize}
+If this succeeds, congratulations, you can ignore the rest of this section and skip to Section 4.
+\subsection{Windows Users}
+Please read section 3.1 to install the R package from Bioconductor 
+before proceed this.
+If you have the prebuilt binary of \textbf{flowPeaks} zip file, 
+you can install the package by selecting the menu ``Packages'', and then ``Install packages from a local zip file'', and then point to 
+prebuilt binary of \textbf{flowPeaks} zip file.
+
+To build \textbf{flowPeaks} from the source by using Rtools is very not straightforward. R novices are not encouraged to try this. 
+Experienced R users need to carefully follow the instruction of the Rtools (\url{http://www.murdoch-sutherland.com/Rtools/}) and \url{http://cran.r-project.org/doc/manuals/R-admin.html#The-Windows-toolset}. The GSL library needs to be downloaded from the file \texttt{local.zip} at 
+\url{http://www.stats.ox.ac.uk/pub/Rtools/goodies/Win32} and the \texttt{GSL\_LIB} in the file
+\texttt{flowPeaks/src/Makevars.win}  should be pointed to the top folder of the extracted file \texttt{local.zip}. The top folder should contain three subfolders: include, bin and lib. The users are not encouraged to compile their own gsl library by MinGW or Visual Studio. Most likely their own version of gsl library is not going to work. 
+
+
+\subsection{Linux Users}
+To build the \textbf{flowPeaks} package from the source, make sure that the following is present on your system:
+\begin{itemize}
+\item C++ compiler
+\item GNU Scientific Library (GSL)
+\end{itemize}
+A C++ compiler is needed to build the package as the core function is coded in C++. 
+GSL can be downloaded directly from \url{http://www.gnu.org/software/gsl/} and follow its instructions to install the GSL from the source code.
+Alternatively, GSL can also be installed from your linux specific package
+manager (for example,  Synaptic Package Manager for Ubuntu system). Other than the GSL binary library, please make sure the GSL development package is also installed, which includes the header files when building \textbf{flowPeaks} package. 
+
+
+Now you are ready to install the package:
+\begin{verbatim}
+R CMD INSTALL flowPeaks_x.y.z.tar.gz
+\end{verbatim}
+
+If GSL is installed at some non-standard location such that it cannot be found
+when installing \textbf{flowPeaks}. You need to do the following
+\begin{enumerate}
+  \item Find out the GSL 
+    include location (\texttt{<path-to-include>}) where the 
+    GSL header files are stored in the sub folder \texttt{gsl},  and 
+    GSL library location (\texttt{<path-to-lib>}) where the lib files are stored. 
+    If the GSL's \texttt{gsl\_config} can be run, 
+    %is there a better choice than a simple \,
+    you can get them easily by \texttt{gsl-config -\,-cflags} and \texttt{gsl-config -\,-libs}
+  \item  In the file \texttt{flowPeaks/src/Makevars}, you may need to change the last two lines as below:
+    \begin{itemize}
+    \item  \texttt{PKG\_CXXFLAGS = \$(GSL\_CFLAGS) -I. -I<path-to-include>}
+    \item  \texttt{PKG\_LIBS = \$(GSL\_LIBS) -L<path-to-lib>}
+    \end{itemize}
+\end{enumerate}
+
+\section{Examples}
+To illustrate how to use the core functions of this package, we use a barcode flow cytometry data, which can be accessed by the command
+data(barcode). The barcode data  is just a simple data matrix of 180,000 rows and 3 columns. The clustering analysis is done by using the following commands.
+<<stage0, results=hide>>=
+library(flowPeaks)
+@
+<<stage1, echo=TRUE>>=
+data(barcode)
+summary(barcode)
+fp<-flowPeaks(barcode)
+@ 
+
+If we want to visualize the results, we can draw scatter plot for any two columns of the data matrix. The result is shown in Figure 1.
+\begin{figure}
+  \centering
+<<stage2b,echo=FALSE>>=
+png("fig1.png",width=2000,height=2000,res=300)
+@
+
+<<stage2, echo=TRUE>>=
+plot(fp,idx=c(1,3))
+@ 
+
+<<stage2e,echo=FALSE,results=hide>>=
+dev.off()
+@
+\includegraphics{fig1}
+\caption{The scatter plot of clustering results for the first column and the third column. Two clusters may share the same color as the automatic color specification is not unique for all clusters. The users may have option to change the col option
+   in the plot function to have their own taste of color specifications.
+  The flowPeaks cluster are drawn in different colors with the centers ($\oplus$), the underlying $K$-means cluster centers are indicated by 
+  $\circ$.}
+\end{figure}
+Different colors specify different clusters, and the dots represent the center of the initial $K$-means, and triangles are the peaks found 
+by flowPeaks.
+We can see all pairwise scatter plots, the R commands and the plot are shown in Figure 2.
+\begin{figure}
+  \centering
+<<stage3b,echo=FALSE>>=
+png("fig2.png",width=2000,height=2000,res=300)
+@
+<<stage3, echo=TRUE>>=
+par(mfrow=c(2,2))
+plot(fp,idx=c(1,2,3))
+@
+<<stage3e,echo=FALSE,results=hide>>=
+dev.off()
+@
+\includegraphics{fig2}
+\caption{Pairwise plot of all columns}
+\end{figure}
+
+We find out that the data displays better clustering in the Pacific.blue and APC. 
+We could choose to redo the clustering just focusing on these two dimensions as shown in Figure 3.
+\begin{figure}
+  \centering
+<<stage4b,echo=FALSE,results=hide>>=
+png("fig3.png",width=2000,height=2000,res=300)
+@
+<<stage4, echo=TRUE,results=hide>>=
+fp2<-flowPeaks(barcode[,c(1,3)])
+plot(fp2)
+@
+<<stage4a, echo=TRUE,results=verbatim>>=
+evalCluster(barcode.cid,fp2$peaks.cluster,method="Vmeasure")
+<<stage4e,echo=FALSE,results=hide>>=
+dev.off()
+@
+
+\includegraphics{fig3}
+\caption{Clustering results based on only the Pacific.blue and APC}
+\end{figure}
+
+Since the clustering is on two dimension, the plot in Figure 3 is able to give 
+you the boundary of the final clusters (in bold line) and the Voronoi 
+boundary of the $K$-means. These boundaries are not visible for the data clustering 
+in higher dimension as the projection onto 2D will have many clusters overlapped.
+
+We can evaluate the cluster performance with the gold standard clustering stored in barcode.cid as shown in Figure 3's legend by sung the \texttt{evalCluster()} function.
+
+We could remove the outliers that are far away from the cluster center or
+can not be ambiguously assigned to one of the neighboring cluster as shown in Figure 4.
+
+\begin{figure}
+  \centering
+<<stage6b,echo=FALSE>>=
+png("fig4.png",width=2000,height=2000,res=300)
+@
+<<stage6, echo=TRUE>>=
+fpc<-assign.flowPeaks(fp2,fp2$x)
+plot(fp2,classlab=fpc,drawboundary=FALSE,
+  drawvor=FALSE,drawkmeans=FALSE,drawlab=TRUE)
+@
+<<stage6e,echo=FALSE,results=hide>>=
+dev.off()
+@
+\includegraphics{fig4}
+\caption{The plot of the barcode after the outliers have been identified as black points}
+\end{figure}
+\section{Reading the data from flowFrame}
+If a user has the data that is of class flowFrame in the flowCore package, he just needs to use the transformed data of the 
+expression slot of the flowFrame where only channles of interest are selected. See Figure 5 for the details
+
+\begin{figure}
+  \centering
+<<stage7b,echo=FALSE>>=
+png("fig5.png",width=2000,height=2000,res=300)  
+@
+<<stage7,echo=TRUE,results=hide>>=
+require(flowCore)
+samp <- read.FCS(system.file("extdata","0877408774.B08",
+package="flowCore"))
+##do the clustering based on the asinh transforamtion of
+##the first two FL channels
+fp.z<-flowPeaks(asinh(samp@exprs[,3:4]))
+plot(fp.z)
+@
+<<stage7e,echo=FALSE,results=hide>>=
+dev.off()
+@
+\includegraphics{fig5}
+\caption{How to use the flowFrame data for the flowPeaks}
+\end{figure}
+\end{document}
+
