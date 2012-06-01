@@ -66,9 +66,15 @@ you can install the package by selecting the menu ``Packages'', and then ``Insta
 prebuilt binary of \textbf{flowPeaks} zip file.
 
 To build \textbf{flowPeaks} from the source by using Rtools is very not straightforward. R novices are not encouraged to try this. 
-Experienced R users need to carefully follow the instruction of the Rtools (\url{http://www.murdoch-sutherland.com/Rtools/}) and \url{http://cran.r-project.org/doc/manuals/R-admin.html#The-Windows-toolset}. The GSL library needs to be downloaded from the file \texttt{local.zip} at 
-\url{http://www.stats.ox.ac.uk/pub/Rtools/goodies/Win32} and the \texttt{GSL\_LIB} in the file
-\texttt{flowPeaks/src/Makevars.win}  should be pointed to the top folder of the extracted file \texttt{local.zip}. The top folder should contain three subfolders: include, bin and lib. The users are not encouraged to compile their own gsl library by MinGW or Visual Studio. Most likely their own version of gsl library is not going to work. 
+Experienced R users need to carefully follow the instruction of the Rtools (\url{http://www.murdoch-sutherland.com/Rtools/}) and \url{http://cran.r-project.org/doc/manuals/R-admin.html#The-Windows-toolset}. The GSL library needs to be downloaded from the file \texttt{local215.zip} at 
+\url{http://www.stats.ox.ac.uk/pub/Rtools/goodies/multilib/}. 
+The top folder (\texttt{top\_path\_local}) of the extracted file \texttt{local215.zip} should contain three subfolders: include, share and lib. The next step is to modify the file \texttt{flowPeaks/src/Makevar.win} as below.
+    \begin{itemize}
+    \item \texttt{PKG\_LIBS += -L(top\_path\_local)/lib/\$(R\_ARCH)/ -lgsl -lgslcblas -lm}
+    \item \texttt{PKG\_CXXFLAGS += -I(top\_path\_local)/include}
+    \end{itemize}
+
+The users are not encouraged to compile their own gsl library by MinGW or Visual Studio. Most likely their own version of gsl library is not going to work. 
 
 
 \subsection{Linux Users}
@@ -100,8 +106,8 @@ when installing \textbf{flowPeaks}. You need to do the following
     you can get them easily by \texttt{gsl-config -\,-cflags} and \texttt{gsl-config -\,-libs}
   \item  In the file \texttt{flowPeaks/src/Makevars}, you may need to change the last two lines as below:
     \begin{itemize}
-    \item  \texttt{PKG\_CXXFLAGS = \$(GSL\_CFLAGS) -I. -I<path-to-include>}
-    \item  \texttt{PKG\_LIBS = \$(GSL\_LIBS) -L<path-to-lib>}
+    \item  \texttt{PKG\_CXXFLAGS = -I<path-to-include>}
+    \item  \texttt{PKG\_LIBS = -L<path-to-lib>}
     \end{itemize}
 \end{enumerate}
 

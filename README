@@ -10,7 +10,7 @@ or Windows built library.
     you use this software for publication
 
        Ge Y. et al, fowPeaks: a fast unsupervised clustering for flow cytometry
-       data via K-means and density peak finding, Manuscript, 2012
+       data via K-means and density peak finding, Bioinformatics, 2012, In Press
 
 2 Overview
      We combine the ideas from the finite mixture model and histogram spatial
@@ -55,13 +55,19 @@ or Windows built library.
     Experienced R users need to  carefully follow the instruction of 
     the Rtools (http://www.murdoch-sutherland.com/Rtools/) and 
     http://cran.r-project.org/doc/manuals/R-admin.html#The-Windows-toolset. 
-    The GSL library needs to be downloaded from the ﬁle local.zip 
-    at http://www.stats.ox.ac.uk/pub/Rtools/goodies/Win32 and the GSL_LIB 
-    in the ﬁle flowPeaks/src/Makevars.win should be pointed to the
-    top folder of the extracted ﬁle local.zip. The top folder should 
-    contain three  subfolders: include, bin and lib. The users are not 
-    encouraged to compile their  own gsl library by MinGW or Visual Studio. 
-    Most likely their own version of gsl library is not going to work.
+    The GSL library needs to be downloaded from the ﬁle local215.zip 
+    at http://www.stats.ox.ac.uk/pub/Rtools/goodies/multilib/. 
+    The top folder (top_path_local) of the extracted ﬁle 
+    local215.zip should contain three subfolders: 
+    include, share and lib. The next step is to modify the file 
+    flowPeaks/src/Makevar.win as below.
+    
+    PKG_LIBS += -L(top_path_local)/lib/$(R_ARCH)/ -lgsl -lgslcblas -lm
+    PKG_CXXFLAGS += -I(top_path_local)/include
+
+    The users are not encouraged to compile their  own gsl library 
+    by MinGW or Visual Studio. Most likely their own version of gsl library 
+    is not going to work.
 
 3.3  Linux Users
 
@@ -92,6 +98,6 @@ or Windows built library.
           and gsl-config  --libs
        2. In the ﬁle flowPeaks/src/Makevars, you may need to change the last
           two lines as below
-          PKG_CXXFLAGS = $(GSL_CFLAGS) -I. -I<path-to-include>
-          PKG_LIBS = $(GSL_LIBS) -L<path-to-lib>
+          PKG_CXXFLAGS = -I<path-to-include>
+          PKG_LIBS = -L<path-to-lib>
 

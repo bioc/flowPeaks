@@ -1,15 +1,16 @@
-# set by configure
-GSL_CFLAGS = -I/usr/include
-GSL_LIBS   = -L/usr/lib -lgsl -lgslcblas -lm
+PKG_CXXFLAGS = `gsl-config --cflags` 
+PKG_LIBS = `gsl-config --libs`
 
-# Users customizations
-# To add a customized GSL include location (<path-to-include>) where 
-# the GSL header files are stored in the sub folder gsl,  and 
-# the GSL library location (<path-to-lib>) where the lib files are stored. 
-# change the last two lines as below:
- 
-# PKG_CXXFLAGS = $(GSL_CFLAGS) -I. -I<path-to-include>
-# PKG_LIBS = $(GSL_LIBS) -L<path-to-lib>
+##############################################
+#  if the above default setting is not working
+#  you need to set these paths manually by modifying 
+#  the above two lines as below
+#  
+#  PKG_CXXFLAGS = -I<path-to-include>
+#  PKG_LIBS = -L<path-to-lib>
+#  GSL include location (<path-to-include>) is where
+#  the GSL header ﬁles are stored in the sub folder gsl, 
+#  and GSL library location (<path-to-lib>) where the lib
+#  ﬁles are stored
+################################################
 
-PKG_CXXFLAGS =  $(GSL_CFLAGS) -I.
-PKG_LIBS = $(GSL_LIBS)

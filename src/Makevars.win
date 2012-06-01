@@ -1,10 +1,14 @@
-##Please modify GSL_LIB to the corresponding GSL library location
-##The GSL library is downloaded from the local.zip at http://www.stats.ox.ac.uk/pub/Rtools/goodies/Win32/.
-##Please do not compile your own gsl library by MinGW or Visual Studio. Most likely your own version of gsl library is not going to work. 
+PKG_LIBS += -L$(LIB_GSL)$(R_ARCH)/lib -lgsl -lgslcblas -lm
+PKG_CXXFLAGS += -I$(LIB_GSL)$(R_ARCH)/include
 
-GSL_LIB=c:/usr/oxford_local
-
-PKG_CXXFLAGS = -I$(GSL_LIB)/include
-PKG_LIBS = -L$(GSL_LIB)/lib -lgsl -gslcblas -lm
-
-
+###################################################################
+#   The GSL library needs to be downloaded from the ﬁle local215.zip 
+#   at http://www.stats.ox.ac.uk/pub/Rtools/goodies/multilib/. 
+#   The top folder (top_path_local) for the extracted file local215.zip 
+#   should contain three subfolders: 
+#   include, share and lib
+#   The above two lines are modified as below
+#
+#   PKG_LIBS += -L(top_path_local)/lib/$(R_ARCH)/ -lgsl -lgslcblas -lm
+#   PKG_CXXFLAGS += -I(top_path_local)/include
+#####################################################################
