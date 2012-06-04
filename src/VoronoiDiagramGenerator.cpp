@@ -37,7 +37,7 @@
 * or modification of this software and in all copies of the supporting
 * documentation for such software.
 * THIS SOFTWARE IS BEING PROVIDED "AS IS", WITHOUT ANY EXPRESS OR IMPLIED
-* WARRANTY.  IN PARTICULAR, THE AUTHOR DOES MOT MAKE ANY
+* WARRANTY.  IN PARTICULAR, THE AUTHOR DOES NOT MAKE ANY
 * REPRESENTATION OR WARRANTY OF ANY KIND CONCERNING THE MERCHANTABILITY
 * OF THIS SOFTWARE OR ITS FITNESS FOR ANY PARTICULAR PURPOSE.
 */
@@ -744,7 +744,7 @@ void VoronoiDiagramGenerator::cleanupEdges()
 
 void VoronoiDiagramGenerator::pushGraphEdge(double x1, double y1, double x2, double y2, int s1_id, int s2_id)
 {
-	GraphEdge* newEdge = new GraphEdge;
+    GraphEdge* newEdge = mymalloc(1,GraphEdge);
 	newEdge->next = allEdges;
 	allEdges = newEdge;
 	newEdge->x1 = x1;
