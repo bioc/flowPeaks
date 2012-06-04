@@ -205,7 +205,7 @@ void Rpack_seedplusplus(double *A, int *pn, int *pp, int *pK,
 {
     Rpack rpack;
     try{
-	double time_begin=getRunningTime(true);
+	//double time_begin=getRunningTime(true);
 	*ptwss=SeedPlusPlus(A,*pn,*pp,*pK,C);
 	Rprintf("The tot.twss with the initial seeds is %.5E after %.2f sec\n",
 		*ptwss,getRunningTime());

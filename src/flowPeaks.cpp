@@ -19,7 +19,7 @@
 #include <gsl/gsl_multimin.h>
 #include <algorithm>
 #include <set>
-#include <fstream>
+//#include <fstream>, it caused conflict for Mac computers.
 using namespace std;
 
 typedef struct
@@ -443,7 +443,7 @@ void MatDevLine(GMM& gmm,const gmatrix &M, gmatrix &FD, int *Nb,
     //find the median for Vtol
     int halfK=K/2;
     nth_element(Vtol,Vtol+K,Vtol+halfK);
-    double tolsf=*(Vtol+halfK);
+    //double tolsf=*(Vtol+halfK);
 
     for(int i=0;i<uK-1;i++){
 	FD(i,i)=0;
