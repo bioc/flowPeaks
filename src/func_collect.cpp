@@ -15,7 +15,7 @@
 #include "quick_op.h"
 #include "func_collect.h"
 #include <ctime>
-#include <fstream>
+//#include <fstream>
 #include <cstring>
 #include <cctype>
 #include <stdexcept>
@@ -268,7 +268,7 @@ void read_file(const char *filename, int* plength,Vchar& buffv){
     buff[length+1]=0;
     *plength=length;
 }
-void headline(const char *filename, const char sep, Vstring& vline, int skip)
+/*void headline(const char *filename, const char sep, Vstring& vline, int skip)
 {
     ifstream ifs (filename, ifstream::in|ifstream::binary );
     string line;
@@ -278,7 +278,7 @@ void headline(const char *filename, const char sep, Vstring& vline, int skip)
     getline(ifs,line);
     split(line,vline,sep);
     ifs.close();
-}
+    }*/
 void scanfast(const char *filename, const int skiprows,const int skipcols,
 	      const char sep,
 	      vector<double>&xv, int* pnrows) 
