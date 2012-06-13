@@ -91,7 +91,7 @@ public:
     gpermutation(const size_t n,bool clean=true){
 	init(n,clean);}
     ~gpermutation(){
-	if(size>0) free(this->data);};
+	if(size>0) myfree(this->data);};
 
     int next(){
 	return gsl_permutation_next(this);};
