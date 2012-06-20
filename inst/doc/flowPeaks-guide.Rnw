@@ -60,7 +60,7 @@ click ``install R package(s)...'' and then look for the package flowPeaks.
 If this succeeds, congratulations, you can ignore the rest of this section and skip to Section 4.
 \subsection{Windows Users}
 Please read section 3.1 to install the R package from Bioconductor 
-before proceed this.
+before proceeding this.
 If you have the prebuilt binary of \textbf{flowPeaks} zip file, 
 you can install the package by selecting the menu ``Packages'', and then ``Install packages from a local zip file'', and then point to 
 prebuilt binary of \textbf{flowPeaks} zip file.
