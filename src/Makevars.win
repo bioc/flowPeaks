@@ -1,14 +1,10 @@
-PKG_LIBS += -L$(LIB_GSL)$(R_ARCH)/lib -lgsl -lgslcblas -lm
-PKG_CXXFLAGS += -I$(LIB_GSL)$(R_ARCH)/include
+COMPILED_BY ?= gcc-4.6.3
 
-###################################################################
-#   The GSL library needs to be downloaded from the ﬁle local215.zip 
-#   at http://www.stats.ox.ac.uk/pub/Rtools/goodies/multilib/. 
-#   The top folder (top_path_local) for the extracted file local215.zip 
-#   should contain three subfolders: 
-#   include, share and lib
-#   The above two lines are modified as below
-#
-#   PKG_LIBS += -L(top_path_local)/lib/$(R_ARCH)/ -lgsl -lgslcblas -lm
-#   PKG_CXXFLAGS += -I(top_path_local)/include
-#####################################################################
+PKG_LIBS += -L../windows/gsl-master/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} -lgsl -lgslcblas -lm
+PKG_CXXFLAGS = -I$(RHOME)/src/include -I../windows/gsl-master/include/gsl
+all: clean winlibs
+
+clean:
+	rm -f flowPeaks.dll $(OBJECTS)
+winlibs:
+	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"	

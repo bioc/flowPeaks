@@ -11,6 +11,6 @@
 }
 \references{
   Ge Y. et al, flowPeaks: a fast unsupervised clustering for flow
-  cytometry data via K-means and density peak finding, 2012, Bioinformatics, in press.
+  cytometry data via K-means and density peak finding, Bioinformatics 8(15):2052-8
   }
 \keyword{datasets}

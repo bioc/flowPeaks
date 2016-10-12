@@ -84,7 +84,7 @@ print(fp) #an alternative of using summary(fp)
 }
 \references{
   Ge Y. et al, flowPeaks: a fast unsupervised clustering for flow
-  cytometry data via K-means and density peak finding, 2012, Bioinformatics, in press.
+  cytometry data via K-means and density peak finding, 2012, Bioinformatics 8(15):2052-8
   }
 \keyword{cluster,multivariate,smooth}
   

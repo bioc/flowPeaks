@@ -41,7 +41,7 @@ assign.flowPeaks(fp,A,tol=0.01,fc=0.8)
 \references{
   Ge Y. et al, flowPeaks: a fast unsupervised clustering for flow
   cytometry data via K-means and density peak finding, 2012,
-  Bioinformatics, in press.
+  Bioinformatics,  8(15):2052-8
   }
 \keyword{cluster,multivarite}
 \seealso{\code{\link{flowPeaks}}}   

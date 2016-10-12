@@ -6,7 +6,7 @@ citEntry(entry="article",
 	journal="Bioinformatics",
 	year="2012",
 	note = paste("R package version ", R.Version()$major, ".", R.Version()$minor, sep = ""),
-	textVersion = "Ge Y. et al, flowPeaks: a fast unsupervised clustering for flow cytometry data via K-means and density peak finding, 2012, Bioinformatics, in press")	       
+	textVersion = "Ge Y. et al, flowPeaks: a fast unsupervised clustering for flow cytometry data via K-means and density peak finding, 2012, Bioinformatics2012,8(15):2052-8")	       
 	
 citFooter("This free open-source software implements academic
 research by the authors and co-workers. If you use it,
