@@ -1,6 +1,6 @@
-COMPILED_BY ?= gcc-4.6.3
+#COMPILED_BY ?= gcc-4.6.3
 
-PKG_LIBS += -L../windows/gsl-master/lib${subst gcc,,${COMPILED_BY}}${R_ARCH} -lgsl -lgslcblas -lm
+PKG_LIBS += -L../windows/gsl-master/lib${R_ARCH} -lgsl -lgslcblas -lm
 PKG_CXXFLAGS = -I$(RHOME)/src/include -I../windows/gsl-master/include/gsl
 all: clean winlibs
 
