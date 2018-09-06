@@ -53,8 +53,9 @@ can install it directly from Bioconductor.
 click ``install R package(s)...'' and then look for the package flowPeaks.
   \item {\bf Linux users}: This also works for Windows users. Type the following after you have invoked R
 \begin{verbatim}
-> source("http://bioconductor.org/biocLite.R")
-> biocLite("flowPeaks")
+> if (!requireNamespace("BiocManager", quietly=TRUE))
+    > install.packages("BiocManager")
+> BiocManager::install("flowPeaks")
 \end{verbatim}
 \end{itemize}
 If this succeeds, congratulations, you can ignore the rest of this section and skip to Section 4.
