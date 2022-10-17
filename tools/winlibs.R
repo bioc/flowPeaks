@@ -1,6 +1,8 @@
-if(!file.exists("../windows/gsl-master/include/gsl/gsl_version.h")){
+# Build against static libraries from rwinlib
+VERSION <- commandArgs(TRUE)
+if(!file.exists(sprintf("../windows/gsl-%s/include/gsl/gs_math.h", VERSION))){
   if(getRversion() < "3.3.0") setInternet2()
-  download.file("https://github.com/rwinlib/gsl/archive/master.zip", "lib.zip", quiet = TRUE)
+  download.file(sprintf("https://github.com/rwinlib/gsl/archive/v%s.zip", VERSION), "lib.zip", quiet = TRUE)
   dir.create("../windows", showWarnings = FALSE)
   unzip("lib.zip", exdir = "../windows")
   unlink("lib.zip")

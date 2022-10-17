@@ -13,4 +13,9 @@ License: Artistic-1.0
 biocViews: ImmunoOncology, FlowCytometry, Clustering, Gating
 SystemRequirements: gsl
 NeedsCompilation: yes
-Packaged: 2017-10-30 23:01:39 UTC; biocbuild
+Packaged: 2022-04-26 20:39:45 UTC; biocbuild
+git_url: https://git.bioconductor.org/packages/flowPeaks
+git_branch: RELEASE_3_15
+git_last_commit: da9fd47
+git_last_commit_date: 2022-04-26
+Date/Publication: 2022-04-26

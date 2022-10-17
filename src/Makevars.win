@@ -1,4 +1,5 @@
-#COMPILED_BY ?= gcc-4.6.3
+VERSION=2.4
+RWINLIB=../windows/gsl-$(VERSION)
 
 PKG_LIBS += -L../windows/gsl-master/lib${R_ARCH} -lgsl -lgslcblas -lm
 PKG_CXXFLAGS = -I$(RHOME)/src/include -I../windows/gsl-master/include/gsl
@@ -7,4 +8,5 @@ all: clean winlibs
 clean:
 	rm -f flowPeaks.dll $(OBJECTS)
 winlibs:
-	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R"	
+	"${R_HOME}/bin${R_ARCH_BIN}/Rscript.exe" "../tools/winlibs.R" $(VERSION)
+.PHONY: all winlibs clean
