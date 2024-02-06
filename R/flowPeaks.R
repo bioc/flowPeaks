@@ -178,7 +178,7 @@ get.kmeans<-function(x,K,stime)
             as.double(t(data.matrix(x))),as.integer(n),as.integer(p),as.integer(K),
             cluster=integer(n),m=double(K*p),nc=integer(K),S=double(K*p*p),
             Nb=integer(K*K),twss=double(1),as.double(stime),
-            DUP=FALSE,PACKAGE="flowPeaks")
+            PACKAGE="flowPeaks") #DUP=FALSE,depreciated
     res<-list(Cw=res$nc/n,Cm=matrix(res$m,K,p,byrow=TRUE),
               CS=matrix(res$S,p*p,K,byrow=FALSE),
               Nb=matrix(res$Nb,K,K,byrow=TRUE),

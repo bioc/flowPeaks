@@ -6,4 +6,6 @@ export(evalCluster)
 S3method(plot,flowPeaks)
 S3method(print,flowPeaks)
 S3method(summary,flowPeaks)
-
+importFrom("grDevices", "nclass.FD")
+importFrom("graphics", "hist", "par", "points", "segments", "text")
+importFrom("stats", "kmeans", "median", "var")
