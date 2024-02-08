@@ -800,7 +800,10 @@ void VoronoiDiagramGenerator::out_vertex(struct Site *v)
 
 void VoronoiDiagramGenerator::out_site(struct Site *s)
 {
-	if(!triangulate & plot & !debug)
+    //if(!triangulate & plot & !debug)
+    /*the old one, modified as below to avoid trigging 
+      warning trigger, logical & doesn't make sense here, yongchao ge*/
+    if(!triangulate && plot && !debug)
 		circle (s->coord.x, s->coord.y, cradius);
 	
 }
