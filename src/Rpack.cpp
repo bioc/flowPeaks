@@ -62,7 +62,7 @@ void Rpack_get_flowpeaks(double *Cw,double* Cm, double* CS,int *pK, int *pp,
 	get_flowpeaks(Cw,Cm,CS,pK,pp,Nb,Cpeaks,Cpeaks_f,Cpeaks_df,cfound,cid, ptol);
     }
     catch (...){
-	error("The underlying C++ function has produced errors\n");
+	Rf_error("The underlying C++ function has produced errors\n");
     }
 }
 void Rpack_get_flowpeaks2(double *Cw,double* Cm, double* CS, int *pK,int *pp, 
@@ -74,7 +74,7 @@ void Rpack_get_flowpeaks2(double *Cw,double* Cm, double* CS, int *pK,int *pp,
 	get_flowpeaks2(Cw,Cm,CS,pK,pp,Nb,Cm_f,Cpeaks,cid, ptol);
     }
     catch (...){
-	error("The underlying C++ function has produced errors\n");
+	Rf_error("The underlying C++ function has produced errors\n");
     }
 }
 
@@ -87,7 +87,7 @@ void Rpack_kmeans(double *A, int *pn, int*pp, int*pK,
 	get_kmeans(A,pn,pp,pK,IC,C,nc,S,Nb,twss,stime);
     }
     catch (...){
-	error("The underlying C++ function has produced errors\n");
+	Rf_error("The underlying C++ function has produced errors\n");
     }
 }
 
@@ -100,7 +100,7 @@ void Rpack_kmeans_center(double *A, int*pn, int *pp, int*pK,
 	get_kmeans_center(A,pn,pp,pK,initC,C,err,iter_max,twss,true,stime);
     }
     catch (...){
-	error("The underlying C++ function has produced errors\n");
+	Rf_error("The underlying C++ function has produced errors\n");
     }
 }
 void Rpack_raster_image(double *raw, int *rawid,
@@ -114,7 +114,7 @@ void Rpack_raster_image(double *raw, int *rawid,
 		     grid_id, pngrid);
     }
     catch (...){
-	error("The underlying C++ function has produced errors\n");
+	Rf_error("The underlying C++ function has produced errors\n");
     }
 }
 
@@ -126,7 +126,7 @@ void Rpack_voronoi(int *n, double *xv, double *yv, int* autobox,
 	voronoi(n,xv,yv,autobox,box,nedge,coordv,sitev);
     }
     catch (...){
-	error("The underlying C++ function has produced errors\n");
+	Rf_error("The underlying C++ function has produced errors\n");
     }
 
 }
@@ -139,14 +139,14 @@ void Rpack_relevel(int *A, int*B, int*pn, int *L_old, int *L_new, int *pk)
     for(int i=0;i<k;i++){
 	levels[L_old[i]]=L_new[i];
 	if(levels.size()<(i+1)){
-	    error("There are duplicated values in your old level settings\n");
+	    Rf_error("There are duplicated values in your old level settings\n");
 	}
     }
     map<int,int>::iterator it;
     for(int i=0;i<n;i++){
 	it=levels.find(A[i]);
 	if(it==levels.end()){
-	    error("The data does not belong to the old levels \n");
+	    Rf_error("The data does not belong to the old levels \n");
 	}
 	B[i]=(*it).second;
     }
@@ -162,7 +162,7 @@ void Rpack_summarize_cluster(double *A, int *pn, int*pp, int *pK,
 		      ret_nc, ret_C, ret_S, ret_twss,false);
     }
     catch (...){
-	error("The underlying C++ function has produced errors\n");
+	Rf_error("The underlying C++ function has produced errors\n");
     }
 }
 void Rpack_assign_kmeans(double *A, int *pn, int *pp, double *C,
@@ -178,7 +178,7 @@ void Rpack_assign_kmeans(double *A, int *pn, int *pp, double *C,
 	}
     }
     catch (...){
-	error("The underlying C++ function has produced errors\n");
+	Rf_error("The underlying C++ function has produced errors\n");
     }
 }
 
@@ -196,7 +196,7 @@ void Rpack_assign_flowPeaks(double *A, int *pn, int *pp, double *Cw,double*Cm,
 			 ret_IC);	
     }
     catch (...){
-	error("The underlying C++ function has produced errors\n");
+	Rf_error("The underlying C++ function has produced errors\n");
     }
 }
 
@@ -211,6 +211,6 @@ void Rpack_seedplusplus(double *A, int *pn, int *pp, int *pK,
 		*ptwss,getRunningTime());
     }
     catch (...){
-	error("The underlying C++ function has produced errors\n");
+	Rf_error("The underlying C++ function has produced errors\n");
     }
 }

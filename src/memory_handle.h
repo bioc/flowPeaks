@@ -7,9 +7,9 @@
 /*Since R has used the marco, there is no neat way for me to get around it, 
   though macro should be avoided as much as possible*/
 
-#define mymalloc(n,t) Calloc(n,t) 
-#define mycalloc(n,t) Calloc(n,t)
-#define myfree(p) Free(p)
+#define mymalloc(n,t) R_Calloc(n,t) 
+#define mycalloc(n,t) R_Calloc(n,t)
+#define myfree(p) R_Free(p)
 
 //If we want to have R indepedent code,
 /* The above needs to be modified as 
