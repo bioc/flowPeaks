@@ -746,7 +746,7 @@ void get_flowpeaks(double *Cw,double* Cm, double* CS, int *pK, int *pp,
 	y.change_view(Cpeaks+i*p,p);
 	bool found;
 	char msg[40];
-	sprintf(msg,"i=%d\t",i);
+	snprintf(msg,38,"i=%d\t",i);
 	//gsl_stream_printf("Information",__FILE__,__LINE__,msg);
 	Cpeaks_f[i]=get_min(gmm.Cm[i],gmm,y,yd,found,maxstepsize);
 	cfound[i]=found;

@@ -368,8 +368,8 @@ bool readrow(Vstring& v, Vdouble & D, bool & label, int nlab,bool clear)
 	    D.push_back(d);
 	}else{
 	    if(!issearch){
-		char msgstr[1000];
-		sprintf(msgstr,"Error in reading field %d as %s is \
+		char msgstr[902];
+		snprintf(msgstr,900,"Error in reading field %d as %s is \
 not a number.\n",i,v[i].c_str());
 		throw(domain_error(msgstr));
 	    }
@@ -380,8 +380,8 @@ not a number.\n",i,v[i].c_str());
 }
 void error_msg(int lineN)
 {
-    char msgstr[1000];
-    sprintf(msgstr,"The data for line %d is in incorrect format.\n",lineN);
+    char msgstr[902];
+    snprintf(msgstr,900,"The data for line %d is in incorrect format.\n",lineN);
     throw(domain_error(msgstr));
 }
 

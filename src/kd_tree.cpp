@@ -548,15 +548,15 @@ void get_kmeans_center(double *A, int*pn, int *pp, int*pK,
 	KD_Tree tree(n,p,A);
 	tree.RunKMeans_EM(K,initC,C,&nc[0],s,eps[0],iter_max[0],&iter_real);
     }
-    char msgstr[1000];
-    sprintf(msgstr,"Finished kd-tree at %d iterations with tot.wss=%.5e at %5.2f seconds\n",iter_real,s,getRunningTime());
+    char msgstr[902];
+    snprintf(msgstr,900,"Finished kd-tree at %d iterations with tot.wss=%.5e at %5.2f seconds\n",iter_real,s,getRunningTime());
     gsl_stream_printf("","",-1,msgstr);
     //note that initC and C are identical
     //now works with Hartigan and Wong
     s=KMeans_HW_plain(A,n,p,K,C,
 		      NULL,C,NULL,
 		      eps[1],iter_max[1],iter_real,NULL);
-    sprintf(msgstr,"Finished Hartigan_wong at %d iterations with tot.wss=%.5e at %5.2f seconds\n",iter_real,s,getRunningTime());
+    snprintf(msgstr,900,"Finished Hartigan_wong at %d iterations with tot.wss=%.5e at %5.2f seconds\n",iter_real,s,getRunningTime());
     gsl_stream_printf("","",-1,msgstr);
 
     *twss=s;

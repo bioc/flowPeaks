@@ -243,11 +243,11 @@ double getRunningTime(bool init, double time0_)
 }
 void read_file(const char *filename, int* plength,Vchar& buffv){
     FILE* fp=fopen(filename,"rb");
-    char msgstr[1000];
+    char msgstr[902];
 
     if(fp==NULL){
 	 *plength=0;
-	 sprintf(msgstr,"Can not opne file %s\n",filename);
+	 snprintf(msgstr,900,"Can not opne file %s\n",filename);
 	 throw(domain_error(msgstr));
      }
     fseek(fp,0,SEEK_END);
@@ -258,7 +258,7 @@ void read_file(const char *filename, int* plength,Vchar& buffv){
     int count=fread(buff,1,length,fp);
     fclose(fp);
     if(count!=length){
-	sprintf(msgstr,"Can not read enough data in %s\n",filename);
+	snprintf(msgstr,900,"Can not read enough data in %s\n",filename);
 	throw(domain_error(msgstr));
     }
 
@@ -283,7 +283,7 @@ void scanfast(const char *filename, const int skiprows,const int skipcols,
 	      const char sep,
 	      vector<double>&xv, int* pnrows) 
 {
-    char msgstr[1000];
+    char msgstr[902];
     xv.reserve(20000);//concentrate on large data files
     //skip lines
     int length;
@@ -296,7 +296,7 @@ void scanfast(const char *filename, const int skiprows,const int skipcols,
     for(int i=0;i<skiprows;i++,p++){
 	p=(char*)memchr(p,'\n',plim-p);
 	if(p>=plim){
-	    sprintf(msgstr,"there are only %d lines, can not skip %d rows\n",
+	    snprintf(msgstr,900,"there are only %d lines, can not skip %d rows\n",
 		    i,skiprows);
 	    throw(domain_error(msgstr));
 	}
@@ -316,7 +316,7 @@ void scanfast(const char *filename, const int skiprows,const int skipcols,
 	for(int j=0;j<skipcols;j++){
 	    p=(char*)memchr(p,sep,pline-p);
 	    if(p==NULL||p==pline){
-		sprintf(msgstr,"We can not skip %d columns at line %d\n",
+		snprintf(msgstr,900,"We can not skip %d columns at line %d\n",
 			skipcols,nlines);
 		throw(domain_error(msgstr));
 	    }
@@ -335,7 +335,7 @@ void scanfast(const char *filename, const int skiprows,const int skipcols,
 	    double d=strtod(oldp,&p);
 	   
 	    if(p==oldp||p>pnext){
-		sprintf(msgstr,"The data is incorrect number format at line %d\n",
+		snprintf(msgstr,900,"The data is incorrect number format at line %d\n",
 			nlines);
 		throw(domain_error(msgstr));
 	    }
@@ -348,7 +348,7 @@ void scanfast(const char *filename, const int skiprows,const int skipcols,
 		//skip white spaces
 		for(;p<pline;p++){
 		    if(!isspace(*p)){
-			sprintf(msgstr,"The data format is wrong for the last column at line %d\n",
+			snprintf(msgstr,900,"The data format is wrong for the last column at line %d\n",
 				nlines);
 			throw(domain_error(msgstr));
 		    }
@@ -360,7 +360,7 @@ void scanfast(const char *filename, const int skiprows,const int skipcols,
 		    ncolhead=ncol;
 		}else{
 		    if(ncolhead!=ncol){
-			sprintf(msgstr,"The data is has %d numbers at line %d\n",
+			snprintf(msgstr,900,"The data is has %d numbers at line %d\n",
 				ncol,nlines);
 			throw(domain_error(msgstr));	
 		    }
